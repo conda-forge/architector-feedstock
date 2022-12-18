@@ -31,6 +31,7 @@ requirements:
     - xtb-python
     - pynauty
     - openbabel
+    - mendeleev
 
 test:
   imports:
