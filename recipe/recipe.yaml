@@ -1,18 +1,21 @@
-{% set name = "architector" %}
-{% set version = "0.0.10" %}
+schema_version: 1
+
+context:
+  name: architector
+  version: 0.0.10
 
 package:
-  name: {{ name|lower }}
-  version: {{ version }}
+  name: ${{ name|lower }}
+  version: ${{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/architector-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/${{ name[0] }}/${{ name }}/architector-${{ version }}.tar.gz
   sha256: fd70256b54de84deff6f88bdf7aa7e9272f6826d5de0d17ec84523bfadf8f76c
 
 build:
-  script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
   noarch: python
+  script: ${{ PYTHON }} -m pip install . -vv
 
 requirements:
   host:
@@ -35,19 +38,18 @@ requirements:
     - tqdm
     - sqlalchemy
 
-test:
-  imports:
-    - architector
-  commands:
-    - pip check
-  requires:
-    - pip
+tests:
+  - python:
+      imports:
+        - architector
+      pip_check: true
 
+      python_version: ${{ python_min }}.*
 about:
-  home: https://github.com/lanl/Architector
   summary: The architector python package - for 3D inorganometallic complex design.
   license: BSD-3-Clause
   license_file: LICENSE.txt
+  homepage: https://github.com/lanl/Architector
 
 extra:
   recipe-maintainers:
